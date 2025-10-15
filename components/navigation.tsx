@@ -242,6 +242,13 @@ export function Navigation() {
                   </SheetTitle>
                 </SheetHeader> 
                 <div className="mt-6 space-y-4">
+                  <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                    pathname === "/" && "bg-accent/50 text-accent-foreground",
+                  )}
+                  onClick={()=> setMobileMenuOpen(false)}
+                  >
+                    Home
+                  </Link>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="course-materials" className="border-border/50 px-3 py-2 rounded-md hover:text-accent-foreground transition-colors">
                       <AccordionTrigger className="text-sm font-medium hover:text-primary transition-colors">
@@ -286,11 +293,12 @@ export function Navigation() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+
                   <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
                     pathname === "/feedback" && "bg-accent/50 text-accent-foreground",
-                  )}
-                  onClick={()=> setMobileMenuOpen(false)}
-                  >
+                    )}
+                    onClick={()=> setMobileMenuOpen(false)}
+                    >
                     Feedback
                   </Link>
                   <Link
