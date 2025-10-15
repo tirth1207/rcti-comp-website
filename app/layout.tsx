@@ -5,6 +5,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next"
 
 const inter = Inter({
   subsets: ["latin"],
@@ -124,6 +125,7 @@ export default function RootLayout({
           <NavConditional />
           <main className="flex-1">
             <Analytics />
+            <SpeedInsights />
             {children}
           </main>
           <FooterConditional />
