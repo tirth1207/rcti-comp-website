@@ -220,22 +220,32 @@ export default async function SubjectResourcesPage({ params }: Props) {
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
         {/* Header with navigation */}
         <div className="mb-8">
-          <div className="flex items-center space-x-2 mb-4">
+            <nav className="flex items-center space-x-2 mb-4 overflow-x-auto whitespace-nowrap text-ellipsis">
             <Link href="/">
-              <Button variant="ghost" size="sm">
-                <ChevronLeft className="h-4 w-4 mr-2" />
-                Home
+              <Button variant="ghost" size="sm" className="min-w-0 px-2">
+              <ChevronLeft className="h-4 w-4 mr-2" />
+              <span className="hidden sm:inline">Home</span>
               </Button>
             </Link>
             <span className="text-muted-foreground">/</span>
             <Link href={`/course-materials/${slug}`}>
-              <Button variant="ghost" size="sm">
-                {semesterInfo.displayName}
+              <Button
+              variant="ghost"
+              size="sm"
+              className="min-w-0 px-2 max-w-[10rem] overflow-hidden text-ellipsis"
+              title={semesterInfo.displayName}
+              >
+              <span className="truncate">{semesterInfo.displayName}</span>
               </Button>
             </Link>
             <span className="text-muted-foreground">/</span>
-            <span className="text-sm font-medium">{subject.name}</span>
-          </div>
+            <span
+              className="text-sm font-medium max-w-[10rem] truncate"
+              title={subject.name}
+            >
+              {subject.name}
+            </span>
+            </nav>
 
           <div className="text-center">
             <div className="flex justify-center items-center space-x-2 mb-4">

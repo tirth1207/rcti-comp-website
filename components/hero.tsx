@@ -47,7 +47,7 @@ export function Hero() {
               <Button
                 variant="outline"
                 size="lg"
-                className="text-base px-8 group hover:bg-accent hover:shadow-md transition-all duration-300 bg-transparent"
+                className="text-base px-8 group hover:bg-accent hover:shadow-md  bg-transparent"
               >
                 Meet Faculty
                 <Users className="ml-2 h-5 w-5 transition-transform group-hover:scale-110" />

@@ -1,16 +1,17 @@
 "use client"
 
-import type React from "react"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { createClient } from "@/lib/supabase/client"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { ArrowLeft, Save } from "lucide-react"
+import { ArrowLeft, CalendarIcon, Save } from "lucide-react"
 import Link from "next/link"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { Calendar } from "@/components/ui/calendar"
+import { format, parseISO } from "date-fns"
 
 interface EditFacultyPageProps {
   params: {
@@ -23,63 +24,50 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
   const [designation, setDesignation] = useState("")
   const [qualification, setQualification] = useState("")
   const [contact, setContact] = useState("")
-  const [bio, setBio] = useState("")
   const [photo, setPhoto] = useState<File | null>(null)
   const [currentPhotoUrl, setCurrentPhotoUrl] = useState<string | null>(null)
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isLoading, setIsLoading] = useState(true)
+  const [experience, setExperience] = useState("")
+  const [joiningDate, setJoiningDate] = useState<Date | undefined>(undefined)
   const router = useRouter()
 
   useEffect(() => {
     const loadFaculty = async () => {
       const supabase = createClient()
-
       const { data, error } = await supabase.from("faculty").select("*").eq("id", params.id).single()
-
-
       if (error) {
         console.error("Error loading faculty:", error)
         router.push("/admin/faculty")
         return
       }
-
       setName(data.name)
       setDesignation(data.designation)
       setQualification(data.qualification || "")
       setContact(data.contact || "")
-      setBio(data.bio || "")
       setCurrentPhotoUrl(data.photo_url)
+      setExperience(data.experience || "")
+      setJoiningDate(data.joining_date ? parseISO(data.joining_date) : undefined)
       setIsLoading(false)
     }
-
     loadFaculty()
   }, [params.id, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-
     const supabase = createClient()
-
     try {
       let photoUrl = currentPhotoUrl
-
       // Upload new photo if provided
       if (photo) {
         const fileExt = photo.name.split(".").pop()
         const fileName = `${Date.now()}.${fileExt}`
-
         const { error: uploadError } = await supabase.storage.from("faculty-photos").upload(fileName, photo)
-
         if (uploadError) throw uploadError
-
-        const {
-          data: { publicUrl },
-        } = supabase.storage.from("faculty-photos").getPublicUrl(fileName)
-
-        photoUrl = publicUrl
+        const { data: urlData } = supabase.storage.from("faculty-photos").getPublicUrl(fileName)
+        photoUrl = urlData.publicUrl
       }
-
       // Update faculty
       const { error } = await supabase
         .from("faculty")
@@ -88,13 +76,12 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
           designation,
           qualification,
           contact,
-          //bio,
           photo_url: photoUrl,
+          experience,
+          joining_date: joiningDate ? format(joiningDate, "yyyy-MM-dd") : null,
         })
         .eq("id", params.id)
-
       if (error) throw error
-
       router.push("/admin/faculty")
     } catch (error) {
       console.error("Error updating faculty:", error)
@@ -189,20 +176,14 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
               />
             </div>
 
-            {/* <div className="space-y-2">
-              <Label htmlFor="bio">Bio/Description</Label>
-              <Textarea
-                id="bio"
-                value={bio}
-                onChange={(e) => setBio(e.target.value)}
-                placeholder="Enter faculty bio or description"
-                rows={4}
-              />
-            </div> */}
-
             <div className="space-y-2">
-              <Label htmlFor="photo">Profile Photo</Label>
-              <Input id="photo" type="file" accept="image/*" onChange={(e) => setPhoto(e.target.files?.[0] || null)} />
+                <Label htmlFor="photo">Profile Photo</Label>
+                <Input
+                id="photo"
+                type="file"
+                accept=".png,.jpg,.jpeg,image/png,image/jpeg"
+                onChange={(e) => setPhoto(e.target.files?.[0] || null)}
+                />
               {currentPhotoUrl && (
                 <p className="text-sm text-muted-foreground">
                   Current photo:{" "}
@@ -217,6 +198,41 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
                 </p>
               )}
               <p className="text-sm text-muted-foreground">Upload a new photo to replace the current one (optional)</p>
+            </div>
+
+            <div className="space-y-2">
+              <Label htmlFor="experience">Experience</Label>
+              <Input
+                id="experience"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                placeholder="e.g., 5 years in teaching"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="joiningDate">Joining Date</Label>
+              <Popover>
+                <PopoverTrigger >
+                  <Button
+                    variant="outline"
+                    data-empty={!joiningDate}
+                    className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                    type="button"
+                  >
+                    <CalendarIcon className="mr-2 h-4 w-4" />
+                    {joiningDate ? format(joiningDate, "PPP") : <span>Pick a date</span>}
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-auto p-0">
+                  <Calendar
+                    mode="single"
+                    selected={joiningDate}
+                    onSelect={setJoiningDate}
+                    initialFocus
+                    captionLayout="dropdown"
+                  />
+                </PopoverContent>
+              </Popover>
             </div>
 
             <div className="flex space-x-4">

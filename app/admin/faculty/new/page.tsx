@@ -8,8 +8,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Label } from "@/components/ui/label";
-import { ArrowLeft, Save } from "lucide-react";
+import { ArrowLeft, CalendarIcon, Save } from "lucide-react";
 import Link from "next/link";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { Calendar } from "@/components/ui/calendar";
+import { format } from "date-fns";
 
 export default function NewFacultyPage() {
   const [name, setName] = useState("");
@@ -17,6 +20,8 @@ export default function NewFacultyPage() {
   const [qualification, setQualification] = useState("");
   const [photoUrl, setPhotoUrl] = useState("");
   const [contact, setContact] = useState("");
+  const [experience, setExperience] = useState("");
+  const [joiningDate, setJoiningDate] = useState<Date | undefined>(undefined);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const router = useRouter();
 
@@ -33,6 +38,8 @@ export default function NewFacultyPage() {
           qualification: qualification.trim() || null,
           photo_url: photoUrl.trim() || null,
           contact: contact.trim() || null,
+          experience: experience.trim() || null,
+          joining_date: joiningDate ? joiningDate.toISOString().split("T")[0] : null,
         },
       ]);
       if (error) throw error;
@@ -121,6 +128,40 @@ export default function NewFacultyPage() {
                 onChange={(e) => setContact(e.target.value)}
                 placeholder="Email or phone (optional)"
               />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="experience">Experience</Label>
+              <Input
+                id="experience"
+                value={experience}
+                onChange={(e) => setExperience(e.target.value)}
+                placeholder="e.g., 5 years in teaching"
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="joiningDate">Joining Date</Label>
+              <Popover>
+              <PopoverTrigger >
+                <Button
+                variant="outline"
+                data-empty={!joiningDate}
+                className="data-[empty=true]:text-muted-foreground w-[280px] justify-start text-left font-normal"
+                type="button"
+                >
+                <CalendarIcon className="mr-2 h-4 w-4" />
+                {joiningDate ? format(joiningDate, "PPP") : <span>Pick a date</span>}
+                </Button>
+              </PopoverTrigger>
+              <PopoverContent className="w-auto p-0">
+                <Calendar
+                mode="single"
+                selected={joiningDate}
+                onSelect={setJoiningDate}
+                initialFocus
+                captionLayout="dropdown"
+                />
+              </PopoverContent>
+              </Popover>
             </div>
 
             <div className="flex space-x-4">
