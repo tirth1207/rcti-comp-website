@@ -34,6 +34,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { ThemeToggle } from "./theme-toggle"
 
 const data = {
   user: {
@@ -87,6 +88,7 @@ export function AppSidebar({
         <NavMain items={data.navMain} />
       </SidebarContent>
       <SidebarFooter>
+        <ThemeToggle />
         <NavUser user={user} />
       </SidebarFooter>
     </Sidebar>

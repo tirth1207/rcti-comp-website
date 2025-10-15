@@ -36,6 +36,7 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
 
       const { data, error } = await supabase.from("faculty").select("*").eq("id", params.id).single()
 
+
       if (error) {
         console.error("Error loading faculty:", error)
         router.push("/admin/faculty")
@@ -87,7 +88,7 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
           designation,
           qualification,
           contact,
-          bio,
+          //bio,
           photo_url: photoUrl,
         })
         .eq("id", params.id)
@@ -188,7 +189,7 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
               />
             </div>
 
-            <div className="space-y-2">
+            {/* <div className="space-y-2">
               <Label htmlFor="bio">Bio/Description</Label>
               <Textarea
                 id="bio"
@@ -197,7 +198,7 @@ export default function EditFacultyPage({ params }: EditFacultyPageProps) {
                 placeholder="Enter faculty bio or description"
                 rows={4}
               />
-            </div>
+            </div> */}
 
             <div className="space-y-2">
               <Label htmlFor="photo">Profile Photo</Label>

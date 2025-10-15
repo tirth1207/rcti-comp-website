@@ -286,7 +286,13 @@ export function Navigation() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-
+                  <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                    pathname === "/feedback" && "bg-accent/50 text-accent-foreground",
+                  )}
+                  onClick={()=> setMobileMenuOpen(false)}
+                  >
+                    Feedback
+                  </Link>
                   <Link
                     href="/contact"
                     className={cn(

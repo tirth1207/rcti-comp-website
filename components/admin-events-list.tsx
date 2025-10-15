@@ -59,7 +59,7 @@ export function AdminEventsList({ events }: { events: any[] }) {
                 <Calendar className="h-5 w-5 text-primary mt-1" />
                 <div className="flex-1">
                   <CardTitle className="text-lg">{event.title}</CardTitle>
-                  <p className="text-sm text-muted-foreground">{new Date(event.created_at).toLocaleDateString()}</p>
+                  <p className="text-sm text-muted-foreground">{new Date(event.date).toLocaleDateString()}</p>
                 </div>
               </div>
               <div className="flex space-x-1">
