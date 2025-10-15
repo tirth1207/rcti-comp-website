@@ -242,7 +242,7 @@ export function Navigation() {
                   </SheetTitle>
                 </SheetHeader> 
                 <div className="mt-6 space-y-4">
-                  <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                  <Link href='/' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
                     pathname === "/" && "bg-accent/50 text-accent-foreground",
                   )}
                   onClick={()=> setMobileMenuOpen(false)}
