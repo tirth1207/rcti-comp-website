@@ -251,7 +251,7 @@ export function Navigation() {
                   </Link>
                   <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="course-materials" className="border-border/50 px-3 py-2 rounded-md hover:text-accent-foreground transition-colors">
-                      <AccordionTrigger className="text-sm font-medium hover:text-primary transition-colors">
+                      <AccordionTrigger className="text-sm font-medium hover:text-primary hover:bg-accent transition-colors">
                         Course Materials
                       </AccordionTrigger>
                       <AccordionContent>
@@ -269,7 +269,8 @@ export function Navigation() {
                         </div>
                       </AccordionContent>
                     </AccordionItem>
-
+                  </Accordion>
+                  <Accordion type="single" collapsible className="w-full">
                     <AccordionItem value="academic" className="border-border/50 px-3 py-2 rounded-md hover:text-accent-foreground transition-colors">
                       <AccordionTrigger className="text-sm font-medium hover:text-primary transition-colors">
                         Academic
@@ -293,6 +294,7 @@ export function Navigation() {
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
+                  
 
                   <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
                     pathname === "/feedback" && "bg-accent/50 text-accent-foreground",
