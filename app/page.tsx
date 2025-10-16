@@ -254,9 +254,9 @@ export default async function HomePage() {
                     </CardDescription>
                     <Link href="/newsletter">
                       <Button
-                        variant="outline"
+                        variant="default"
                         size="sm"
-                        className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 bg-transparent"
+                        className="w-full group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-200 bg-secondary border text-secondary-foreground"
                       >
                         Read More
                         <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
@@ -270,7 +270,7 @@ export default async function HomePage() {
               <Link href="/newsletter">
                 <Button
                   variant="outline"
-                  className="hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-transparent"
+                  className="hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-secondary border text-secondary-foreground"
                 >
                   View All Newsletters
                   <ArrowRight className="ml-2 h-4 w-4" />

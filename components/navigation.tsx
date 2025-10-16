@@ -2,20 +2,17 @@
 
 import { useState } from "react"
 import Link from "next/link"
-// import { usePathname } from "next/navigation"
-import { usePathname } from "next/navigation";
+// import { usePathname } from 'next/navigation'
+import { usePathname } from "next/navigation"
 // import { Footer } from "@/components/footer";
 import { GraduationCap, Menu, X, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
-import { ThemeToggle } from "@/components/theme-toggle"
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler"
 import {
   NavigationMenu,
-  NavigationMenuContent,
   NavigationMenuItem,
   NavigationMenuLink,
   NavigationMenuList,
-  NavigationMenuTrigger,
   navigationMenuTriggerStyle,
 } from "@/components/ui/navigation-menu"
 import {
@@ -29,7 +26,6 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { cn } from "@/lib/utils"
-import { title } from "process";
 
 export function Navigation() {
   const pathname = usePathname()
@@ -65,7 +61,7 @@ export function Navigation() {
       title: "About",
       description: "Learn more about our department",
       href: "/about",
-    }
+    },
   ]
 
   const semesters = [
@@ -89,7 +85,11 @@ export function Navigation() {
           <Link href="/" className="flex items-center gap-2 hover:opacity-80 transition-all duration-200 group">
             <div className="relative">
               {/* <GraduationCap className="h-8 w-8 text-primary transition-transform group-hover:scale-110" /> */}
-              <img src="/RCTI_Logo.png" alt="Logo" className="h-10 w-10 object-contain transition-transform group-hover:scale-110" />
+              <img
+                src="/RCTI_Logo.png"
+                alt="Logo"
+                className="h-10 w-10 object-contain transition-transform group-hover:scale-110"
+              />
               <div className="absolute inset-0 bg-primary/20 rounded-full scale-0 group-hover:scale-150 transition-transform duration-300 opacity-0 group-hover:opacity-100" />
             </div>
             <span className="text-lg font-semibold tracking-tight text-foreground group-hover:text-primary transition-colors">
@@ -145,25 +145,25 @@ export function Navigation() {
                     {/* <DropdownMenuLabel className="text-primary font-medium">Select Semester</DropdownMenuLabel> */}
                     {/* <DropdownMenuSeparator /> */}
                     <div className="grid w-[600px] grid-cols-2 p-4 gap-3">
-                    {academicSections.map((section) => (
-                      <NavigationMenuLink key={section.href} asChild>
-                        <Link
-                          href={section.href}
-                          className={cn(
-                            "block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group border border-transparent hover:border-border/50",
-                            pathname === section.href && "bg-accent/50 text-accent"
-                          )}
-                        >
-                          <div className="text-sm font-medium text-foreground leading-none group-hover:text-primary transition-colors ">
-                            {section.title}
-                          </div>
-                          <p className="line-clamp-2 text-sm leading-snug text-muted-foreground dark:text-muted-foreground">
-                            {section.description}
-                          </p>
-                        </Link>
-                      </NavigationMenuLink>
-                    ))}
-                  </div>
+                      {academicSections.map((section) => (
+                        <NavigationMenuLink key={section.href} asChild>
+                          <Link
+                            href={section.href}
+                            className={cn(
+                              "block select-none space-y-1 rounded-lg p-3 leading-none no-underline outline-none transition-all duration-200 hover:bg-accent hover:text-accent-foreground focus:bg-accent focus:text-accent-foreground group border border-transparent hover:border-border/50",
+                              pathname === section.href && "bg-accent/50 text-accent",
+                            )}
+                          >
+                            <div className="text-sm font-medium text-foreground leading-none group-hover:text-primary transition-colors ">
+                              {section.title}
+                            </div>
+                            <p className="line-clamp-2 text-sm leading-snug text-muted-foreground dark:text-muted-foreground">
+                              {section.description}
+                            </p>
+                          </Link>
+                        </NavigationMenuLink>
+                      ))}
+                    </div>
                   </DropdownMenuContent>
                 </DropdownMenu>
                 {/* <NavigationMenuTrigger className="hover:bg-accent hover:text-accent-foreground data-[state=open]:bg-accent/50 transition-all duration-200">
@@ -213,13 +213,13 @@ export function Navigation() {
           {/* Right side actions */}
           <div className="flex items-center gap-3">
             {/* <ThemeToggle /> */}
-            <AnimatedThemeToggler />
+            <AnimatedThemeToggler/>
             <div className="hidden lg:block">
               <Link href="/contact">
                 <Button
-                  variant="outline"
+                  variant="default"
                   size="sm"
-                  className="hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-transparent"
+                  className=" hover:text-primary-foreground transition-all duration-200 bg-primary"
                 >
                   Contact
                 </Button>
@@ -240,67 +240,69 @@ export function Navigation() {
                     <GraduationCap className="h-6 w-6 text-primary" />
                     Navigation
                   </SheetTitle>
-                </SheetHeader> 
-                <div className="mt-6 space-y-4">
-                  <Link href='/' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
-                    pathname === "/" && "bg-accent/50 text-accent-foreground",
-                  )}
-                  onClick={()=> setMobileMenuOpen(false)}
+                </SheetHeader>
+                <div className="mt-6 space-y-4 flex flex-col">
+                  <Link
+                    href="/"
+                    className={cn(
+                      "block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                      pathname === "/" && "bg-accent/50 text-accent-foreground",
+                    )}
+                    onClick={() => setMobileMenuOpen(false)}
                   >
                     Home
                   </Link>
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="course-materials" className="border-border/50 px-3 py-2 rounded-md hover:text-accent-foreground transition-colors">
-                      <AccordionTrigger className="text-sm font-medium hover:text-primary hover:bg-accent transition-colors">
+
+                  {/* Mobile Sections as Accordion */}
+                  <Accordion type="single" collapsible className="w-full space-y-2">
+                    <AccordionItem value="course-materials" className="border-none">
+                      <AccordionTrigger className="w-full justify-between px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
                         Course Materials
                       </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="space-y-1 pl-4">
-                          {semesters.slice(0, 8).map((semester) => (
-                            <Link
-                              key={`${semester.number}-${semester.type}`}
-                              href={`/course-materials/semester-${semester.number}${semester.type !== "regular" ? `-${semester.type}` : ""}`}
-                              className="block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {semester.title}
-                            </Link>
-                          ))}
-                        </div>
+                      <AccordionContent className="space-y-2">
+                        {semesters.slice(0, 9).map((semester) => (
+                          <Link
+                            key={`${semester.number}-${semester.type}`}
+                            href={`/course-materials/semester-${semester.number}${semester.type !== "regular" ? `-${semester.type}` : ""}`}
+                            className="block w-full px-4 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors"
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {semester.title}
+                          </Link>
+                        ))}
                       </AccordionContent>
                     </AccordionItem>
-                  </Accordion>
-                  <Accordion type="single" collapsible className="w-full">
-                    <AccordionItem value="academic" className="border-border/50 px-3 py-2 rounded-md hover:text-accent-foreground transition-colors">
-                      <AccordionTrigger className="text-sm font-medium hover:text-primary transition-colors">
+
+                    <AccordionItem value="academic" className="border-none">
+                      <AccordionTrigger className="w-full justify-between px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors">
                         Academic
                       </AccordionTrigger>
-                      <AccordionContent>
-                        <div className="space-y-1 pl-4">
-                          {academicSections.map((section) => (
-                            <Link
-                              key={section.href}
-                              href={section.href}
-                              className={cn(
-                                "block px-3 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
-                                pathname === section.href && "bg-accent/50 text-accent-foreground",
-                              )}
-                              onClick={() => setMobileMenuOpen(false)}
-                            >
-                              {section.title}
-                            </Link>
-                          ))}
-                        </div>
+                      <AccordionContent className="space-y-2">
+                        {academicSections.map((section) => (
+                          <Link
+                            key={section.href}
+                            href={section.href}
+                            className={cn(
+                              "block w-full px-4 py-2 text-sm rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                              pathname === section.href && "bg-accent/50 text-accent-foreground",
+                            )}
+                            onClick={() => setMobileMenuOpen(false)}
+                          >
+                            {section.title}
+                          </Link>
+                        ))}
                       </AccordionContent>
                     </AccordionItem>
                   </Accordion>
-                  
 
-                  <Link href='/feedback' className={cn("block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
-                    pathname === "/feedback" && "bg-accent/50 text-accent-foreground",
+                  <Link
+                    href="/feedback"
+                    className={cn(
+                      "block px-3 py-2 text-sm font-medium rounded-md hover:bg-accent hover:text-accent-foreground transition-colors",
+                      pathname === "/feedback" && "bg-accent/50 text-accent-foreground",
                     )}
-                    onClick={()=> setMobileMenuOpen(false)}
-                    >
+                    onClick={() => setMobileMenuOpen(false)}
+                  >
                     Feedback
                   </Link>
                   <Link
@@ -313,17 +315,6 @@ export function Navigation() {
                   >
                     Contact
                   </Link>
-
-                  {/* <div className="pt-4 border-t border-border/50">
-                    <Link href="/auth/login" onClick={() => setMobileMenuOpen(false)}>
-                      <Button
-                        variant="outline"
-                        className="w-full hover:bg-primary hover:text-primary-foreground transition-all duration-200 bg-transparent"
-                      >
-                        Admin Login
-                      </Button>
-                    </Link>
-                  </div> */}
                 </div>
               </SheetContent>
             </Sheet>
@@ -334,17 +325,13 @@ export function Navigation() {
   )
 }
 
-
-
-
-
 export function NavConditional() {
-  const pathname = usePathname();
+  const pathname = usePathname()
 
   // Hide footer for all /admin/... routes
   if (pathname.startsWith("/admin")) {
-    return null;
+    return null
   }
 
-  return <Navigation />;
+  return <Navigation />
 }

@@ -4,14 +4,12 @@ import { Card } from "@/components/ui/card"
 import Link from "next/link"
 import { ArrowRight, BookOpen, Users, Calendar, Sparkles } from "lucide-react"
 import { AnimatedStudents } from "./ui/animatednumber"
+import { InteractiveGridPattern } from "@/components/ui/index"
 
 export function Hero() {
   return (
     <section className="relative py-20 lg:py-32 overflow-hidden">
-      <div className="absolute inset-0 bg-gradient-to-br from-background via-background to-muted/20" />
-      <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_120%,rgba(120,119,198,0.1),transparent)]" />
-
-      <div className="container mx-auto px-4 relative">
+      <div className="container mx-auto px-4 relative z-10">
         <div className="max-w-4xl mx-auto text-center">
           <Badge
             variant="secondary"

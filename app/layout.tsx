@@ -1,11 +1,12 @@
 import "./globals.css";
-import { NavConditional, Navigation } from "@/components/navigation";
+import { NavConditional } from "@/components/navigation";
 import { FooterConditional } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
+import ClientWrapper from "@/components/client-wrapper"; // ✅ client logic wrapper
 import { Inter, JetBrains_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import { SpeedInsights } from "@vercel/speed-insights/next";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -34,9 +35,9 @@ export const metadata: Metadata = {
   creator: "RCTI Computer Department",
   publisher: "RCTI",
   icons: {
-    icon: "/RCTI_Logo.png",      // ✅ correct
-    shortcut: "/RCTI_Logo.png",  // ✅ correct
-    apple: "/RCTI_Logo.png",     // ✅ correct
+    icon: "/RCTI_Logo.png",
+    shortcut: "/RCTI_Logo.png",
+    apple: "/RCTI_Logo.png",
   },
   openGraph: {
     title: "Computer Department - RCTI",
@@ -46,7 +47,7 @@ export const metadata: Metadata = {
     siteName: "RCTI Computer Department",
     images: [
       {
-        url: "/RCTI_Logo.png",  // ✅ correct
+        url: "/RCTI_Logo.png",
         width: 800,
         height: 600,
         alt: "RCTI Computer Department",
@@ -60,7 +61,7 @@ export const metadata: Metadata = {
     title: "Computer Department - RCTI",
     description:
       "Discover the Computer Engineering Department at RCTI with programs, faculty, and resources for aspiring engineers.",
-    images: ["/RCTI_Logo.png"], // ✅ correct
+    images: ["/RCTI_Logo.png"],
     creator: "@yourTwitterHandle",
   },
   robots: {
@@ -81,12 +82,7 @@ export const metadata: Metadata = {
   category: "Education",
 };
 
-
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
@@ -116,19 +112,16 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} font-sans antialiased min-h-screen flex flex-col`}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          // enableSystem
-          disableTransitionOnChange
-        >
-          <NavConditional />
-          <main className="flex-1">
-            <Analytics />
-            <SpeedInsights />
-            {children}
-          </main>
-          <FooterConditional />
+        <ThemeProvider attribute="class" defaultTheme="light" disableTransitionOnChange>
+          <ClientWrapper>
+            <NavConditional />
+            <main className="flex-1">
+              <Analytics />
+              <SpeedInsights />
+              {children}
+            </main>
+            <FooterConditional />
+          </ClientWrapper>
         </ThemeProvider>
       </body>
     </html>
