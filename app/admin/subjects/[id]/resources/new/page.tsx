@@ -151,7 +151,7 @@ export default function BulkResourcePage({ params }: Props) {
             <div className="overflow-x-auto">
               <table className="min-w-full table-auto border-collapse border border-slate-200">
                 <thead>
-                  <tr className="bg-slate-100">
+                  <tr className="bg-background">
                     <th className="border p-2 text-left">Title</th>
                     <th className="border p-2 text-left">Category</th>
                     <th className="border p-2 text-left">File URL</th>
@@ -160,7 +160,7 @@ export default function BulkResourcePage({ params }: Props) {
                 </thead>
                 <tbody>
                   {rows.map((row, index) => (
-                    <tr key={index} className="hover:bg-slate-50">
+                    <tr key={index} className="hover:bg-muted">
                       <td className="border p-2">
                         <Input
                           value={row.title}

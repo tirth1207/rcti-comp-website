@@ -59,6 +59,7 @@ export default function NewEventPage() {
       router.push("/admin/events");
     } catch (error) {
       console.error("Error creating event:", error);
+      console.log("error", error)
       alert("There was an error creating the event. Please try again.");
     } finally {
       setIsSubmitting(false);

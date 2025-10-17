@@ -91,9 +91,9 @@ export default function BulkSubjectPage() {
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="overflow-x-auto">
-              <table className="min-w-full table-auto border-collapse border border-slate-200">
+              <table className="min-w-full bg-background  table-auto border-collapse border border-slate-200">
                 <thead>
-                  <tr className="bg-slate-100">
+                  <tr className="">
                     <th className="border p-2 text-left">Subject Name</th>
                     <th className="border p-2 text-left">Code</th>
                     <th className="border p-2 text-left">Semester</th>
@@ -102,7 +102,7 @@ export default function BulkSubjectPage() {
                 </thead>
                 <tbody>
                   {rows.map((row, index) => (
-                    <tr key={index} className="hover:bg-slate-50">
+                    <tr key={index} className="hover:bg-muted">
                       <td className="border p-2">
                         <Input
                           value={row.name}

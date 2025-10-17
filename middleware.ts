@@ -39,12 +39,16 @@ export async function middleware(request: NextRequest) {
       }
 
       // Get user profile to check role
+      // console.log("user", user)
+      // console.log("userError", userError)
+      
       const { data: profile, error: profileError } = await supabase
         .from("profiles")
         .select("role")
         .eq("id", user.id)
         .single()
-
+      // console.log("profile", profile)
+      // console.log("profileError", profileError)
       if (profileError) {
         console.error("Error fetching user profile:", profileError)
         // If we can't fetch the profile, redirect to an error page or login
