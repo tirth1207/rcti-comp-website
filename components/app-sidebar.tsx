@@ -7,6 +7,7 @@ import {
   Bot,
   Calendar,
   Command,
+  Database,
   FileText,
   Frame,
   GraduationCap,
@@ -18,6 +19,7 @@ import {
   Send,
   Settings2,
   SquareTerminal,
+  Upload,
   Users,
 } from "lucide-react"
 
@@ -51,6 +53,7 @@ const data = {
     { title: "Faculty", url: "/admin/faculty", icon: Users },
     { title: "Feedback", url: "/admin/feedback", icon: MessageSquare },
     { title: "Contact", url: "/admin/contact", icon: LifeBuoy },
+    { title: "Bulk Material Upload", url: "/admin/bulk-upload", icon: Database },
   ],
 }
 

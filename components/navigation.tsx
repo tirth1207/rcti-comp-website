@@ -26,6 +26,7 @@ import {
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/components/ui/sheet"
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
 import { cn } from "@/lib/utils"
+import { Description } from "@radix-ui/react-dialog"
 
 export function Navigation() {
   const pathname = usePathname()
@@ -62,6 +63,11 @@ export function Navigation() {
       description: "Learn more about our department",
       href: "/about",
     },
+    {
+      title: "Result",
+      description: "Check your  mid semseter exam Result using your enrollment number.",
+      href: "/result",
+    }
   ]
 
   const semesters = [

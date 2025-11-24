@@ -9,6 +9,7 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectTrigger, SelectContent, SelectValue, SelectItem } from "@/components/ui/select"
 import { ArrowLeft, Save, Plus } from "lucide-react"
 import Link from "next/link"
+import Papa from "papaparse"
 
 interface Props {
   params: { id: string }
@@ -61,11 +62,48 @@ export default function BulkResourcePage({ params }: Props) {
     loadSubject()
   }, [params.id, router])
 
+  const handleCSV = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (!file) return
+
+    if (file.type !== "text/csv" && !file.name.endsWith(".csv")) {
+      alert("Please upload a valid CSV file.")
+      return
+    }
+
+    Papa.parse(file, {
+      header: true,
+      skipEmptyLines: true,
+      complete: (result) => {
+        const parsedRows = result.data.map((row: any) => ({
+          title: row.title || "",
+          category: row.category || "",
+          file_url: row.file_url || "",
+        }))
+
+        setRows(parsedRows)
+      },
+      error: (err) => {
+        console.error("CSV parse error:", err)
+        alert("Failed to parse CSV file.")
+      }
+    })
+  }
+
   const handleChange = (index: number, field: keyof ResourceRow, value: string) => {
     const newRows = [...rows]
+
     newRows[index][field] = value
+
+    // Always sync title with category
+    if (field === "category") {
+      newRows[index].title = value
+    }
+
     setRows(newRows)
   }
+
+
 
   const addRow = () => setRows([...rows, { title: "", category: "", file_url: "" }])
   const removeRow = (index: number) => setRows(rows.filter((_, i) => i !== index))
@@ -145,6 +183,13 @@ export default function BulkResourcePage({ params }: Props) {
         <CardHeader>
           <CardTitle>Resource Table</CardTitle>
           <CardDescription>Enter multiple resources in the table below</CardDescription>
+          <Input
+            className="w-16 bg-primary"
+            type="file"
+            accept=".csv"
+            onChange={handleCSV}
+          />
+
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4">
