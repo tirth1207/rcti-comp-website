@@ -74,7 +74,7 @@ export default function BulkResourcePage({ params }: Props) {
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
-      complete: (result) => {
+      complete: (result:any) => {
         const parsedRows = result.data.map((row: any) => ({
           title: row.title || "",
           category: row.category || "",
@@ -83,7 +83,7 @@ export default function BulkResourcePage({ params }: Props) {
 
         setRows(parsedRows)
       },
-      error: (err) => {
+      error: (err:any) => {
         console.error("CSV parse error:", err)
         alert("Failed to parse CSV file.")
       }

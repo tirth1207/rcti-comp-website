@@ -24,13 +24,31 @@ export default function EditSubjectPage({ params }: EditSubjectPageProps) {
   const [semester, setSemester] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isDeleting, setIsDeleting] = useState(false)
+
   const [isLoading, setIsLoading] = useState(true)
   const router = useRouter()
 
   // Get unique semester numbers for the dropdown
-  const semesterNumbers = Array.from(
-    new Set(AVAILABLE_SEMESTERS.map(s => s.number))
-  ).sort((a, b) => a - b)
+  const SEMESTER_OPTIONS = [
+    { value: "1-OLD", label: "Semester 1 (OLD)" },
+    { value: "1-NEP", label: "Semester 1 (NEP)" },
+
+    { value: "2-OLD", label: "Semester 2 (OLD)" },
+    { value: "2-NEP", label: "Semester 2 (NEP)" },
+
+    { value: "3-OLD", label: "Semester 3 (OLD)" },
+    { value: "3-NEP", label: "Semester 3 (NEP)" },
+
+    { value: "4", label: "Semester 4" },
+    { value: "5", label: "Semester 5" },
+    { value: "6", label: "Semester 6" },
+  ]
+  const formatOldNew = (value: string | null) => {
+    if (!value) return null
+    if (value.toLowerCase() === "new") return "NEP"
+    if (value.toLowerCase() === "old") return "OLD"
+    return value.toUpperCase()
+  }
 
   useEffect(() => {
     const loadSubject = async () => {
@@ -47,19 +65,28 @@ export default function EditSubjectPage({ params }: EditSubjectPageProps) {
         router.push("/admin/subjects")
         return
       }
-
+      console.log(data)
       setName(data.name)
       setCode(data.code || "")
-      setSemester(data.semester.toString())
+      setSemester(
+        data.old_new
+          ? `${data.semester}-${formatOldNew(data.old_new)}`
+          : `${data.semester}`
+      )
       setIsLoading(false)
     }
-
+    
+    console.log(semester)
     loadSubject()
   }, [params.id, router])
+  
+
+  
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
+    
 
     if (!name.trim() || !semester) {
       alert("Please fill in all required fields")
@@ -68,14 +95,22 @@ export default function EditSubjectPage({ params }: EditSubjectPageProps) {
     }
 
     const supabase = createClient()
+    const [semValue, flag] = semester.split("-")
 
+    const normalizedOldNew =
+      flag?.toLowerCase() === "nep"
+        ? "new"
+        : flag?.toLowerCase() === "old"
+        ? "old"
+        : null
     try {
       const { error } = await supabase
         .from("subjects")
         .update({
           name: name.trim(),
           code: code.trim() || null,
-          semester: parseInt(semester),
+          semester: parseInt(semValue),
+          old_new: normalizedOldNew
         })
         .eq("id", params.id)
 
@@ -202,9 +237,9 @@ export default function EditSubjectPage({ params }: EditSubjectPageProps) {
                       <SelectValue placeholder="Select semester" />
                     </SelectTrigger>
                     <SelectContent>
-                      {semesterNumbers.map((sem) => (
-                        <SelectItem key={sem} value={sem.toString()}>
-                          Semester {sem}
+                      {SEMESTER_OPTIONS.map((opt) => (
+                        <SelectItem key={opt.value} value={opt.value}>
+                          {opt.label}
                         </SelectItem>
                       ))}
                     </SelectContent>

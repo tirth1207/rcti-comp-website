@@ -13,6 +13,7 @@ interface Subject {
   name: string
   code?: string
   semester: number
+  old_new: string
   created_at: string
 }
 
@@ -54,7 +55,15 @@ export default function AdminSubjectsPage() {
       setSubjects((prev) => prev.filter((subj) => subj.id !== id))
     }
   }
-
+  
+  function toTitleCase(str: string) {
+    if (!str) return ""
+    return str
+      .toLowerCase()
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ")
+  }
   // Group subjects by semester
   const subjectsBySemester =
     subjects.reduce((acc, subject) => {
@@ -150,7 +159,9 @@ export default function AdminSubjectsPage() {
                       </CardHeader>
                       <CardContent>
                         <div className="flex items-center justify-between">
-                          <Badge variant="secondary">Semester {subject.semester}</Badge>
+                          <Badge variant="secondary">
+                            Semester {subject.semester} - {toTitleCase(subject.old_new)}
+                          </Badge>
                           <Link href={`/admin/subjects/${subject.id}/resources`}>
                             <Button variant="outline" size="sm">
                               Manage Resources

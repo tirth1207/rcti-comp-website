@@ -42,7 +42,7 @@ export default function MultiSubjectUploader() {
   const supabase = createClient();
 
   type Resource = { category: string; url: string };
-  type SubjectRow = { semester: number; code: string; name: string; resources: Resource[] };
+  type SubjectRow = { semester: number; code: string; name: string; resources: Resource[],type: string };
 
   const [parsedData, setParsedData] = useState<SubjectRow[]>([]);
   const [log, setLog] = useState<string[]>([]);
@@ -85,6 +85,26 @@ export default function MultiSubjectUploader() {
 
     URL.revokeObjectURL(url);
   };
+  function parseSemesterCell(cell: string) {
+    if (!cell) return { semester: null, type: "regular" };
+
+    const clean = cell.trim().toLowerCase();
+
+    // case: "1 old"
+    if (clean.includes("old")) {
+      const num = parseInt(clean);
+      return { semester: num, type: "old" };
+    }
+
+    // case: "1 (2024 nep)"
+    if (clean.includes("nep")) {
+      const num = parseInt(clean);
+      return { semester: num, type: "new" };
+    }
+
+    // case: "1"
+    return { semester: parseInt(clean), type: "regular" };
+  }
 
   const processCSV = (rows: any) => {
     appendLog("Processing CSV…");
@@ -94,7 +114,9 @@ export default function MultiSubjectUploader() {
     let current: SubjectRow | null = null;
 
     rows.forEach((row: any) => {
-      const [semester, code, name, category, url] = row;
+      const [semesterCell, code, name, category, url] = row;
+      const { semester, type } = parseSemesterCell(String(semesterCell || ""));
+
 
       if (semester && code && name) {
         if (current) subjects.push(current);
@@ -104,6 +126,7 @@ export default function MultiSubjectUploader() {
           code: String(code),
           name: String(name),
           resources: [],
+          type: type,
         };
 
         if (category && url) {
@@ -145,6 +168,7 @@ export default function MultiSubjectUploader() {
           name: s.name,
           code: s.code,
           semester: s.semester,
+          old_new: s.type,
         })
         .select()
         .single();

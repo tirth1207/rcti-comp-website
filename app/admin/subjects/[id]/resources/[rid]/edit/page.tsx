@@ -112,7 +112,6 @@ export default function EditResourcePage({ params }: Props) {
         category,
         file_url: fileUrl || null,
         updated_at: new Date().toISOString(),
-        updated_by: user.id,
       })
       .eq("id", params.rid)
 

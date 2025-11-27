@@ -8,6 +8,10 @@ export const columns = [
     header: "Semester",
   },
   {
+    accessorKey: "type",
+    header: "Type",
+  },
+  {
     accessorKey: "code",
     header: "Code",
   },

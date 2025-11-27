@@ -23,7 +23,8 @@ export default function BulkSubjectPage() {
   const [isSubmitting, setIsSubmitting] = useState(false)
 
   // Unique sorted semester numbers for dropdown
-  const semesterNumbers = Array.from(new Set(AVAILABLE_SEMESTERS.map(s => s.number))).sort((a, b) => a - b)
+  // Use full semester list (number + type)
+  const semesterOptions = AVAILABLE_SEMESTERS;
 
   const handleChange = (index: number, field: keyof SubjectRow, value: string) => {
     const newRows = [...rows]
@@ -41,6 +42,8 @@ export default function BulkSubjectPage() {
     const supabase = createClient()
 
     try {
+      console.log("Submitting rows:", rows)
+
       const validRows = rows.filter(row => row.name.trim() && row.semester)
       if (!validRows.length) {
         alert("Please fill in at least one valid subject.")
@@ -48,13 +51,20 @@ export default function BulkSubjectPage() {
         return
       }
 
-      const { error } = await supabase.from("subjects").insert(
-        validRows.map(row => ({
+      const payload = validRows.map(row => {
+        const semInfo = AVAILABLE_SEMESTERS.find(s => s.slug === row.semester)
+
+        return {
           name: row.name.trim(),
           code: row.code?.trim() || null,
-          semester: parseInt(row.semester!),
-        }))
-      )
+          semester: semInfo ? semInfo.number : null,
+          old_new: semInfo ? semInfo.type : null,
+        }
+      })
+
+      console.log("Submitting payload:", payload)
+
+      const { error } = await supabase.from("subjects").insert(payload)
 
       if (error) throw error
 
@@ -67,6 +77,7 @@ export default function BulkSubjectPage() {
       setIsSubmitting(false)
     }
   }
+
 
   return (
     <div className="space-y-6">
@@ -126,9 +137,12 @@ export default function BulkSubjectPage() {
                             <SelectValue placeholder="Select semester" />
                           </SelectTrigger>
                           <SelectContent>
-                            {semesterNumbers.map((sem) => (
-                              <SelectItem key={sem} value={sem.toString()}>
-                                Semester {sem}
+                            {semesterOptions.map((sem) => (
+                              <SelectItem 
+                                key={sem.slug} 
+                                value={sem.slug} // store slug instead of number
+                              >
+                                {sem.displayName}
                               </SelectItem>
                             ))}
                           </SelectContent>

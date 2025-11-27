@@ -8,9 +8,9 @@ import { Button } from "@/components/ui/button"
 // Helper function to parse semester info from slug
 function parseSemesterSlug(slug: string) {
   const patterns = [
-    { pattern: /^semester-(\d+)-(old|nep)$/, handler: (match: RegExpMatchArray) => ({ 
+    { pattern: /^semester-(\d+)-(old|new)$/, handler: (match: RegExpMatchArray) => ({ 
       number: parseInt(match[1]), 
-      type: match[2] as 'old' | 'nep' 
+      type: match[2] as 'old' | 'new' 
     })},
     { pattern: /^semester-(\d+)$/, handler: (match: RegExpMatchArray) => ({ 
       number: parseInt(match[1]), 
@@ -49,6 +49,7 @@ interface Props {
 export default async function SemesterSubjectsPage({ params }: Props) {
   const { slug } = params
   const semesterInfo = parseSemesterSlug(slug)
+  console.log('Parsed semester info:', semesterInfo)
 
   if (!semesterInfo) {
     return (
@@ -76,6 +77,7 @@ export default async function SemesterSubjectsPage({ params }: Props) {
     .from('subjects')
     .select('*')
     .eq('semester', semesterInfo.number)
+    .eq('old_new', semesterInfo.type.toLowerCase())
     .order('name')
 
   if (error) {

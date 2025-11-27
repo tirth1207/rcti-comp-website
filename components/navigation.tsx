@@ -72,11 +72,11 @@ export function Navigation() {
 
   const semesters = [
     { title: "Semester 1 (Old)", number: 1, type: "old" },
-    { title: "Semester 1 (NEP)", number: 1, type: "nep" },
+    { title: "Semester 1 (NEP)", number: 1, type: "new" },
     { title: "Semester 2 (Old)", number: 2, type: "old" },
-    { title: "Semester 2 (NEP)", number: 2, type: "nep" },
+    { title: "Semester 2 (NEP)", number: 2, type: "new" },
     { title: "Semester 3 (Old)", number: 3, type: "old" },
-    { title: "Semester 3 (NEP)", number: 3, type: "nep" },
+    { title: "Semester 3 (NEP)", number: 3, type: "new" },
     { title: "Semester 4", number: 4, type: "regular" },
     { title: "Semester 5", number: 5, type: "regular" },
     { title: "Semester 6", number: 6, type: "regular" },
