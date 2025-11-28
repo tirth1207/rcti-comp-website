@@ -9,10 +9,10 @@ import Link from "next/link"
 function parseSemesterSlug(slug: string) {
   const patterns = [
     {
-      pattern: /^semester-(\d+)-(old|nep)$/,
+      pattern: /^semester-(\d+)-(old|new)$/,
       handler: (match: RegExpMatchArray) => ({
         number: Number.parseInt(match[1]),
-        type: match[2] as "old" | "nep",
+        type: match[2] as "old" | "new",
       }),
     },
     {
@@ -128,6 +128,7 @@ function mapToMainCategory(category: string): string {
 
 export default async function SubjectResourcesPage({ params }: Props) {
   const { slug, subject: subjectId } = params
+  console.log(slug, subjectId)
   // console.log("Params:", params)
   // console.log("Subject ID:", subjectId)
   // console.log("Slug:", slug)
