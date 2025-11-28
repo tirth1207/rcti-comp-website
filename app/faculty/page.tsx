@@ -39,6 +39,7 @@ export default async function FacultyPage() {
                           alt={member.name}
                           fill
                           className="object-cover"
+                          priority
                         />
                       </div>
                     ) : (

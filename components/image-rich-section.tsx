@@ -28,7 +28,7 @@ export function ImageRichSection({ imageSrc, imageAlt, eyebrow, title, body, bul
                 fill
                 sizes="(max-width: 768px) 100vw, 50vw"
                 className="rounded-t-md object-cover md:rounded-l-md md:rounded-tr-none"
-                priority={false}
+                priority
               />
             </div>
             <div className="flex flex-col justify-center p-6 md:p-8">

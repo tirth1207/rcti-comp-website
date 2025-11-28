@@ -35,6 +35,7 @@ export default function AboutPage() {
         title="Project-based learning that builds confidence"
         body="Each semester includes practical labs and projects designed to reinforce theory with real applications. You’ll work in teams, use modern tools, and present your work just like in the industry."
         bullets={["Mini-projects every term", "Peer reviews and demos", "Portfolio-focused outcomes"]}
+        
       />
 
       <ImageRichSection
