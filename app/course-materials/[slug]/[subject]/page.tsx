@@ -2,10 +2,18 @@ import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
-import { BookOpen, ChevronLeft, ExternalLink, FileText, Presentation, FileImage, File } from "lucide-react"
+import {
+  BookOpen,
+  ChevronLeft,
+  ExternalLink,
+  FileText,
+  Presentation,
+  FileImage,
+  File,
+} from "lucide-react"
 import Link from "next/link"
 
-// Helper function to parse semester info from slug
+// Parse semester information from slug
 function parseSemesterSlug(slug: string) {
   const patterns = [
     {
@@ -41,7 +49,7 @@ function parseSemesterSlug(slug: string) {
   return null
 }
 
-// Helper function to get file icon based on file extension or category
+// Select icon based on file extension
 function getFileIcon(fileName: string | null, category: string) {
   if (!fileName) return File
 
@@ -59,13 +67,11 @@ function getFileIcon(fileName: string | null, category: string) {
     case "gif":
       return FileImage
     default:
-      // Fall back to category-based icons
       switch (category.toLowerCase()) {
         case "notes":
         case "syllabus":
           return FileText
         case "presentations":
-        case "slides":
           return Presentation
         default:
           return File
@@ -73,7 +79,6 @@ function getFileIcon(fileName: string | null, category: string) {
   }
 }
 
-// Helper function to get category color
 function getCategoryColor(category: string) {
   const colors = {
     notes: "bg-blue-50 text-blue-700 border-blue-200",
@@ -87,13 +92,6 @@ function getCategoryColor(category: string) {
   return colors[category.toLowerCase() as keyof typeof colors] || colors.default
 }
 
-interface Subject {
-  id: string
-  name: string
-  code: string | null
-  semester: number
-}
-
 interface Resource {
   id: string
   subject_id: string
@@ -101,13 +99,6 @@ interface Resource {
   title: string
   file_url: string | null
   created_at: string
-}
-
-interface Props {
-  params: {
-    slug: string
-    subject: string
-  }
 }
 
 const MAIN_CATEGORIES = {
@@ -123,18 +114,13 @@ function mapToMainCategory(category: string): string {
       return mainCategory
     }
   }
-  return "Course Material" // Default to Course Material if no specific mapping
+  return "Course Material"
 }
 
-export default async function SubjectResourcesPage({ params }: Props) {
+export default async function SubjectResourcesPage({ params }: { params: { slug: string; subject: string } }) {
   const { slug, subject: subjectId } = params
-  console.log(slug, subjectId)
-  // console.log("Params:", params)
-  // console.log("Subject ID:", subjectId)
-  // console.log("Slug:", slug)
-  const semesterInfo = parseSemesterSlug(slug)
-  // console.log("Semester Info:", semesterInfo)
 
+  const semesterInfo = parseSemesterSlug(slug)
   if (!semesterInfo) {
     return (
       <div className="min-h-screen py-12">
@@ -156,7 +142,7 @@ export default async function SubjectResourcesPage({ params }: Props) {
 
   const supabase = await createClient()
 
-  // Get subject information
+  // Fetch subject details
   const { data: subject, error: subjectError } = await supabase
     .from("subjects")
     .select("*")
@@ -182,19 +168,15 @@ export default async function SubjectResourcesPage({ params }: Props) {
     )
   }
 
-  // Get resources for this subject
-  const { data: resources, error: resourcesError } = await supabase
+  // Fetch resources
+  const { data: resources } = await supabase
     .from("resources")
     .select("*")
     .eq("subject_id", subjectId)
     .order("category")
     .order("created_at", { ascending: false })
 
-  if (resourcesError) {
-    console.error("Error fetching resources:", resourcesError)
-  }
-
-  // Group resources by category
+  // Group by category
   const resourcesByCategory: Record<string, Resource[]> = {}
   resources?.forEach((resource) => {
     const category = resource.category || "Other"
@@ -211,96 +193,107 @@ export default async function SubjectResourcesPage({ params }: Props) {
     "Learning Exercises": [],
   }
 
-  Object.entries(resourcesByCategory).forEach(([category, categoryResources]) => {
-    const mainCategory = mapToMainCategory(category)
-    resourcesByMainCategory[mainCategory].push(...categoryResources)
+  Object.entries(resourcesByCategory).forEach(([category, list]) => {
+    resourcesByMainCategory[mapToMainCategory(category)].push(...list)
   })
 
   return (
     <div className="min-h-screen py-12">
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Header with navigation */}
+        {/* Header */}
         <div className="mb-8">
-            <nav className="flex items-center space-x-2 mb-4 overflow-x-auto whitespace-nowrap text-ellipsis">
+          <nav className="flex items-center space-x-2 mb-4 overflow-x-auto whitespace-nowrap">
             <Link href="/">
-              <Button variant="ghost" size="sm" className="min-w-0 px-2">
-              <ChevronLeft className="h-4 w-4 mr-2" />
-              <span className="hidden sm:inline">Home</span>
+              <Button variant="ghost" size="sm">
+                <ChevronLeft className="h-4 w-4 mr-2" />
+                <span className="hidden sm:inline">Home</span>
               </Button>
             </Link>
             <span className="text-muted-foreground">/</span>
+
             <Link href={`/course-materials/${slug}`}>
-              <Button
-              variant="ghost"
-              size="sm"
-              className="min-w-0 px-2 max-w-[10rem] overflow-hidden text-ellipsis"
-              title={semesterInfo.displayName}
-              >
-              <span className="truncate">{semesterInfo.displayName}</span>
+              <Button variant="ghost" size="sm" title={semesterInfo.displayName}>
+                <span className="truncate">{semesterInfo.displayName}</span>
               </Button>
             </Link>
+
             <span className="text-muted-foreground">/</span>
-            <span
-              className="text-sm font-medium max-w-[10rem] truncate"
-              title={subject.name}
-            >
-              {subject.name}
-            </span>
-            </nav>
+            <span className="text-sm font-medium truncate">{subject.name}</span>
+          </nav>
 
           <div className="text-center">
             <div className="flex justify-center items-center space-x-2 mb-4">
               <Badge variant="secondary">{semesterInfo.displayName}</Badge>
               {subject.code && <Badge variant="outline">{subject.code}</Badge>}
             </div>
-            <h1 className="text-4xl font-bold text-foreground mb-4">{subject.name}</h1>
+            <h1 className="text-4xl font-bold mb-4">{subject.name}</h1>
             <p className="text-muted-foreground max-w-2xl mx-auto">
-              Study materials, notes, and resources for this subject
+              Study materials, notes, and resources for this subject.
             </p>
           </div>
         </div>
 
+        {/* Content */}
         {resources && resources.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {Object.entries(resourcesByMainCategory).map(([mainCategory, mainCategoryResources]) => (
-              <div key={mainCategory} className="col-span-1">
+            {Object.entries(resourcesByMainCategory).map(([mainCategory, list]) => (
+              <div key={mainCategory}>
                 <div className="flex items-center mb-4">
-                  <h2 className="text-xl font-bold text-foreground">{mainCategory}</h2>
+                  <h2 className="text-xl font-bold">{mainCategory}</h2>
                   <Badge variant="outline" className="ml-3">
-                    {mainCategoryResources.length} {mainCategoryResources.length === 1 ? "item" : "items"}
+                    {list.length} {list.length === 1 ? "item" : "items"}
                   </Badge>
                 </div>
+
                 <div className="space-y-4">
-                  {mainCategoryResources.length > 0 ? (
-                    mainCategoryResources.map((resource) => {
+                  {list.length > 0 ? (
+                    list.map((resource) => {
                       const IconComponent = getFileIcon(resource.file_url, resource.category)
                       const categoryColorClass = getCategoryColor(resource.category)
 
-                      return (
-                        <Card key={resource.id} className="h-full hover:shadow-lg transition-all duration-300">
-                          <CardHeader className="flex flex-row items-center justify-between space-y-0 p-4">
+                      return resource.file_url ? (
+                        <a
+                          key={resource.id}
+                          href={resource.file_url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="block"
+                        >
+                          <Card className="hover:shadow-lg cursor-pointer transition-all">
+                            <CardHeader className="flex flex-row items-center justify-between p-4">
+                              <div className="flex items-center space-x-3">
+                                <div className={`p-2 rounded-lg ${categoryColorClass}`}>
+                                  <IconComponent className="h-5 w-5" />
+                                </div>
+                                <div>
+                                  <CardTitle className="text-base line-clamp-1">{resource.title}</CardTitle>
+                                  <Badge variant="outline" className="text-xs mt-1">
+                                    {resource.category}
+                                  </Badge>
+                                </div>
+                              </div>
+
+                              <ExternalLink className="h-5 w-5 text-muted-foreground" />
+                            </CardHeader>
+                          </Card>
+                        </a>
+                      ) : (
+                        <Card key={resource.id} className="opacity-60">
+                          <CardHeader className="p-4">
                             <div className="flex items-center space-x-3">
                               <div className={`p-2 rounded-lg ${categoryColorClass}`}>
                                 <IconComponent className="h-5 w-5" />
                               </div>
-                              <div className="flex-1 min-w-0">
+                              <div>
                                 <CardTitle className="text-base line-clamp-1">{resource.title}</CardTitle>
                                 <Badge variant="outline" className="text-xs mt-1">
                                   {resource.category}
                                 </Badge>
                               </div>
                             </div>
-                            {resource.file_url ? (
-                              <a href={resource.file_url} target="_blank" rel="noopener noreferrer">
-                                <Button variant="ghost" size="icon">
-                                  <ExternalLink className="h-5 w-5" />
-                                </Button>
-                              </a>
-                            ) : (
-                              <Badge variant="secondary" className="text-xs">
-                                No file
-                              </Badge>
-                            )}
+                            <Badge variant="secondary" className="text-xs mt-2">
+                              No file
+                            </Badge>
                           </CardHeader>
                         </Card>
                       )
@@ -321,13 +314,12 @@ export default async function SubjectResourcesPage({ params }: Props) {
             <Card className="max-w-md mx-auto">
               <CardContent className="py-12">
                 <BookOpen className="h-16 w-16 text-muted-foreground mx-auto mb-4" />
-                <h3 className="text-xl font-semibold text-foreground mb-2">No Resources Available</h3>
-                <p className="text-muted-foreground mb-4">
-                  No study materials have been uploaded for {subject.name} yet.
+                <h3 className="text-xl font-semibold">No Resources Available</h3>
+                <p className="text-muted-foreground mt-2">
+                  No study materials have been uploaded yet.
                 </p>
-                <p className="text-sm text-muted-foreground mb-6">Resources will be added by faculty members.</p>
                 <Link href={`/course-materials/${slug}`}>
-                  <Button variant="outline">
+                  <Button className="mt-6" variant="outline">
                     <ChevronLeft className="h-4 w-4 mr-2" />
                     Back to Subjects
                   </Button>
@@ -337,25 +329,23 @@ export default async function SubjectResourcesPage({ params }: Props) {
           </div>
         )}
 
-        {/* Additional Info */}
+        {/* Footer */}
         <div className="mt-12">
           <Card className="max-w-4xl mx-auto">
             <CardHeader>
               <CardTitle className="text-center">Need More Resources?</CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="text-center">
-                <p className="text-muted-foreground mb-6">
-                  If you need additional study materials or have questions about this subject, feel free to reach out.
-                </p>
-                <div className="flex justify-center space-x-4">
-                  <Link href="/contact">
-                    <Button variant="outline">Contact Faculty</Button>
-                  </Link>
-                  <Link href="/feedback">
-                    <Button variant="outline">Request Materials</Button>
-                  </Link>
-                </div>
+            <CardContent className="text-center">
+              <p className="text-muted-foreground mb-6">
+                If you need additional study materials, feel free to contact faculty.
+              </p>
+              <div className="flex justify-center space-x-4">
+                <Link href="/contact">
+                  <Button variant="outline">Contact Faculty</Button>
+                </Link>
+                <Link href="/feedback">
+                  <Button variant="outline">Request Materials</Button>
+                </Link>
               </div>
             </CardContent>
           </Card>

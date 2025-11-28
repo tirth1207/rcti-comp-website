@@ -10,7 +10,12 @@ export const metadata: Metadata = pageMetadata.faculty
 export default async function FacultyPage() {
   const supabase = await createClient()
 
-  const { data: faculty, error } = await supabase.from("faculty").select("*").order("name", { ascending: true })
+  const { data: faculty, error } = await supabase
+  .from("faculty")
+  .select("*")
+  .order("designation", { ascending: true })
+  .order("name", { ascending: true })
+
 
   if (error) {
     console.error("Error fetching faculty:", error)

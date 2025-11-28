@@ -66,31 +66,29 @@ export default function ContactPage() {
                     <div>
                       <h3 className="font-semibold text-foreground">Address</h3>
                       <p className="text-muted-foreground">
-                        Computer Science Department
-                        <br />
-                        123 University Avenue
-                        <br />
-                        College Campus, State 12345
+                        Opp Sola Civil Hospital, Near Gujarat High Court
+                         <br />
+                        S.G.Highway,Sola, Ahmedabad - 380060
                       </p>
                     </div>
                   </div>
 
-                  <div className="flex items-start space-x-4">
+                  {/* <div className="flex items-start space-x-4">
                     <Phone className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-foreground">Phone</h3>
                       <p className="text-muted-foreground">+1 (555) 123-4567</p>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div className="flex items-start space-x-4">
                     <Clock className="h-6 w-6 text-primary mt-1" />
                     <div>
                       <h3 className="font-semibold text-foreground">Office Hours</h3>
                       <p className="text-muted-foreground">
-                        Monday - Friday: 9:00 AM - 5:00 PM
+                        Monday - Friday: 10:30 AM - 6:10 PM
                         <br />
-                        Saturday: 9:00 AM - 1:00 PM
+                        Saturday: 10:30 AM - 5:00 PM (Working Saturday)
                         <br />
                         Sunday: Closed
                       </p>
@@ -104,7 +102,7 @@ export default function ContactPage() {
                   <CardTitle>Email</CardTitle>
                 </CardHeader>
                 <CardContent>
-                  <p className="text-muted-foreground">info@computerdept.edu</p>
+                  <p className="text-muted-foreground"><a href="mailto:computer.rcti640@gmail.com">computer.rcti640@gmail.com</a></p>
                 </CardContent>
               </Card>
             </div>
