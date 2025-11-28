@@ -49,7 +49,7 @@ interface Props {
 export default async function SemesterSubjectsPage({ params }: Props) {
   const { slug } = params
   const semesterInfo = parseSemesterSlug(slug)
-  console.log('Parsed semester info:', semesterInfo)
+  // console.log('Parsed semester info:', semesterInfo)
 
   if (!semesterInfo) {
     return (

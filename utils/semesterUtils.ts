@@ -13,7 +13,7 @@ export function parseSemesterSlug(slug: string): SemesterInfo | null {
       pattern: /^semester-(\d+)-(old|nep)$/, 
       handler: (match: RegExpMatchArray) => ({ 
         number: parseInt(match[1]), 
-        type: match[2] as 'old' | 'nep' 
+        type: match[2] as 'old' | 'new' 
       })
     },
     { 
