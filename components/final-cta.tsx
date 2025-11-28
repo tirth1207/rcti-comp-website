@@ -18,7 +18,7 @@ export function FinalCTA() {
             </p>
             <div className="mt-6 flex flex-col items-center justify-center gap-3 sm:flex-row">
               <Button asChild>
-                <a href="#" aria-label="Begin application">
+                <a href="/contact" aria-label="Begin application">
                   Begin Application
                 </a>
               </Button>
