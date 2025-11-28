@@ -17,11 +17,15 @@ async function resultpage() {
     .eq('enroll',enrollment)
     .order('')
   return (
-    <div className='flex justify-center align-center max-w-3xl mx-auto mt-20'>
-        <form className='w-full max-w-3xl mx-auto gap-3 flex flex-col justify-center align-center'>
-            <Input className='w-full' placeholder='Enter Your Enrollment Number' type='number' value={enrollment} onChange={(e) => setEnrollment(e.target.value)}/>
-            <Button className='my-5'>Submit</Button>
-        </form>
+    // <div className='flex justify-center align-center max-w-3xl mx-auto mt-20'>
+    //     <form className='w-full max-w-3xl mx-auto gap-3 flex flex-col justify-center align-center'>
+    //         <Input className='w-full' placeholder='Enter Your Enrollment Number' type='number' value={enrollment} onChange={(e) => setEnrollment(e.target.value)}/>
+    //         <Button className='my-5'>Submit</Button>
+    //     </form>
+    // </div>
+
+    <div className='flex justify-center items-center h-[500px] font-bold text-4xl'>
+      Coming Soon
     </div>
   )
 }

@@ -52,7 +52,7 @@ export default function NewsTicker() {
 
         {/* News Marquee */}
         <div className="relative overflow-hidden">
-          <Marquee pauseOnHover className="[--duration:25s] py-2">
+          <Marquee pauseOnHover className="[--duration:80s] py-2">
             {notices.map((notice) => (
               <div key={notice.id} className="flex items-center">
                 <NewsCard key={notice.id} {...notice} />
@@ -65,8 +65,8 @@ export default function NewsTicker() {
           </Marquee>
 
           {/* Fade edges */}
-          <div className="from-muted/30 pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r" />
-          <div className="from-muted/30 pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l" />
+          <div className="from-[#fcfcfc] dark:from-[#121212] pointer-events-none absolute inset-y-0 left-0 w-1/6 bg-gradient-to-r" />
+          <div className="from-[#fcfcfc] dark:from-[#121212] pointer-events-none absolute inset-y-0 right-0 w-1/6 bg-gradient-to-l" />
         </div>
       </div>
     </section>
