@@ -3,6 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button"
 import { Bell, Download, FileText, SquareArrowOutUpRightIcon } from "lucide-react"
 import Link from "next/link"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.studentCorner
 
 export default async function StudentCornerPage() {
   const supabase = await createClient()

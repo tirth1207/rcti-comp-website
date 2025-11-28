@@ -5,6 +5,10 @@ import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { MapPin, Phone, Clock } from "lucide-react"
 import ContactForm from "@/components/contact-form"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.contact
 
 // Add these styles at the top or import them from a CSS file
 const mapStyles = `

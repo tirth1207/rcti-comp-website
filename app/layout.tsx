@@ -2,7 +2,7 @@ import "./globals.css";
 import { NavConditional } from "@/components/navigation";
 import { FooterConditional } from "@/components/footer";
 import { ThemeProvider } from "@/components/theme-provider";
-import ClientWrapper from "@/components/client-wrapper"; // ✅ client logic wrapper
+import ClientWrapper from "@/components/client-wrapper";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import type { Metadata } from "next";
 import { Analytics } from "@vercel/analytics/next";
@@ -19,7 +19,10 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Computer Department - RCTI | Official Website",
+  title: {
+    default: "Computer Department - RCTI | Official Website",
+    template: "%s | RCTI Computer Department",
+  },
   description:
     "Explore the Computer Engineering Department at RCTI. Discover programs, faculty, events, resources, and opportunities that prepare students for careers in technology.",
   keywords: [
@@ -86,7 +89,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        {/* ✅ JSON-LD Structured Data */}
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{

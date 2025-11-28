@@ -2,6 +2,10 @@ import { createClient } from "@/lib/supabase/server"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Mail, User } from "lucide-react"
 import Image from "next/image"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.faculty
 
 export default async function FacultyPage() {
   const supabase = await createClient()

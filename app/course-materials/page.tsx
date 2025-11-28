@@ -3,6 +3,10 @@ import { Badge } from "@/components/ui/badge"
 import { BookOpen, ChevronRight } from "lucide-react"
 import Link from "next/link"
 import { AVAILABLE_SEMESTERS } from "@/utils/semesterUtils"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.coursesMaterials
 
 export default function CourseMaterialsPage() {
   return (

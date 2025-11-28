@@ -1,6 +1,8 @@
 "use client"
 
 import type React from "react"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
 
 import { useState } from "react"
 import { createClient } from "@/lib/supabase/client"
@@ -18,6 +20,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
+
+export const metadata: Metadata = pageMetadata.feedback
 
 export default function FeedbackPage() {
   const [name, setName] = useState("")

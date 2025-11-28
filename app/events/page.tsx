@@ -3,6 +3,10 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Calendar, Camera } from "lucide-react"
 import Image from "next/image"
 import { EventCarousel } from "@/components/carousel"
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.events
 
 export default async function EventsPage() {
   const supabase = await createClient()

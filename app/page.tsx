@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import Link from "next/link"
+import type { Metadata } from "next"
 import {
   BookOpen,
   Users,
@@ -19,6 +20,9 @@ import { Vision } from "@/components/vision"
 import { Mission } from "@/components/mission"
 import  NewsTicker  from "@/components/news-ticker"
 import { MarqueeDemo } from "@/components/testimonial"
+import { pageMetadata } from "@/lib/metadata"
+
+export const metadata: Metadata = pageMetadata.home
 
 export default async function HomePage() {
   const supabase = await createClient()
@@ -122,8 +126,6 @@ export default async function HomePage() {
     <div className="min-h-screen bg-background">
       {/* Hero Section */}
       <Hero />
-
-      
 
       <section className="py-16 bg-muted/30 relative overflow-hidden">
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_80%_20%,rgba(120,119,198,0.05),transparent)]" />

@@ -1,8 +1,12 @@
+import type { Metadata } from "next"
+import { pageMetadata } from "@/lib/metadata"
 import { HeroAbout } from "@/components/hero-about"
 import { VisionMissionCards } from "@/components/vision-mission-cards"
 import { BentoOffers } from "@/components/bento-offers"
 import { ImageRichSection } from "@/components/image-rich-section"
 import { FinalCTA } from "@/components/final-cta"
+
+export const metadata: Metadata = pageMetadata.about
 
 export default function AboutPage() {
   return (
