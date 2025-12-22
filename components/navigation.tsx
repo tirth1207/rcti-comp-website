@@ -77,11 +77,11 @@ export function Navigation() {
     { title: "Semester 2 (NEP)", number: 2, type: "new" },
     { title: "Semester 3 (Old)", number: 3, type: "old" },
     { title: "Semester 3 (NEP)", number: 3, type: "new" },
-    { title: "Semester 4", number: 4, type: "regular" },
-    { title: "Semester 5", number: 5, type: "regular" },
-    { title: "Semester 6", number: 6, type: "regular" },
-    // { title: "Semester 7", number: 7, type: "regular" },
-    // { title: "Semester 8", number: 8, type: "regular" },
+    { title: "Semester 4", number: 4, type: "old" },
+    { title: "Semester 5", number: 5, type: "old" },
+    { title: "Semester 6", number: 6, type: "old" },
+    // { title: "Semester 7", number: 7, type: "old" },
+    // { title: "Semester 8", number: 8, type: "old" },
   ]
 
   return (
