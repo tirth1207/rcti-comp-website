@@ -35,6 +35,7 @@ const RESOURCE_CATEGORIES = [
   "GTU Question Papers",
   "Reference Materials",
   "Internal Viva Questions",
+  "Practical Questions",
   "Other",
 ]
 
