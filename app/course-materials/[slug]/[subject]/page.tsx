@@ -127,6 +127,8 @@ const MAIN_CATEGORIES = {
     "Internal Viva Questions",
     "GTU Question Papers",
     "Question Papers",
+    "Diary Format",
+    "Cover Pages",
   ],
 }
 
