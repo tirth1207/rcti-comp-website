@@ -121,6 +121,8 @@ const MAIN_CATEGORIES = {
   "Learning Exercises": [
     "Assignments",
     "Assignments Rubrics",
+    "Tutorials",
+    "Tutorial Rubrics",
     "Suggested List of Microprojects",
     "Microporject Rubrics",
     "Question Bank",

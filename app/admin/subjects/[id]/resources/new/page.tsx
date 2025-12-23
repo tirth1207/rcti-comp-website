@@ -38,6 +38,8 @@ const RESOURCE_CATEGORIES = [
   "Practical Questions",
   "Diary Format",
   "Cover Pages",
+  "Tutorials",
+  "Tutorial Rubrics",
   "Other",
 ]
 
