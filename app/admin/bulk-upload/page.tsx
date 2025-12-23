@@ -40,6 +40,7 @@ function normalizeCategory(cat: any) {
   if (clean.includes("note")) return "Notes";
   if (clean.includes("present")) return "Presentations";
   if (clean.includes("resource")) return "Resources";
+  if (clean.includes("practical")) return "Practical Questions";
 
   return "Other";
 }
