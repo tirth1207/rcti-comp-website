@@ -81,6 +81,7 @@ export default function EditResourcePage({ params }: Props) {
       setTitle(resourceData.title)
       setCategory(resourceData.category)
       setCurrentFileUrl(resourceData.file_url)
+      setFileUrl(resourceData.file_url || "")
       setIsLoading(false)
     }
 
