@@ -102,11 +102,34 @@ interface Resource {
 }
 
 const MAIN_CATEGORIES = {
-  Curriculum: ["Syllabus", "Notes", "Presentations"],
-  "Course Material": ["Assignments", "Resources", "Reference Materials", "Other"],
-  "Lab Resources": ["Lab Manual"],
-  "Learning Exercises": ["Question Papers"],
+  "Curriculum": [
+    "Syllabus",
+  ],
+
+  "Course Material": [
+    "Resources",
+    "Reference Materials",
+    "Other",
+    "Notes",
+    "Presentations",
+  ],
+
+  "Lab Resources": [
+    "Lab Manual",
+  ],
+
+  "Learning Exercises": [
+    "Assignments",
+    "Assignments Rubrics",
+    "Suggested List of Microprojects",
+    "Microporject Rubrics",
+    "Question Bank",
+    "Internal Viva Questions",
+    "GTU Question Papers",
+    "Question Papers",
+  ],
 }
+
 
 function mapToMainCategory(category: string): string {
   for (const mainCategory in MAIN_CATEGORIES) {
@@ -259,7 +282,7 @@ export default async function SubjectResourcesPage({ params }: { params: { slug:
                           rel="noopener noreferrer"
                           className="block"
                         >
-                          <Card className="hover:shadow-lg cursor-pointer transition-all">
+                          <Card className="hover:shadow-lg cursor-pointer transition-all py-0">
                             <CardHeader className="flex flex-row items-center justify-between p-4">
                               <div className="flex items-center space-x-3">
                                 <div className={`p-2 rounded-lg ${categoryColorClass}`}>

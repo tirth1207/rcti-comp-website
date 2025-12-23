@@ -36,16 +36,7 @@ export default async function NewsletterPage() {
                 <CardHeader>
                   <div className="flex items-start space-x-3">
                     <FileText className="h-6 w-6 text-primary mt-1" />
-                    <div className="flex-1">
-                      <CardTitle className="text-xl mb-2">{newsletter.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground">
-                        {new Date(newsletter.created_at).toLocaleDateString("en-US", {
-                          year: "numeric",
-                          month: "long",
-                          day: "numeric",
-                        })}
-                      </p>
-                    </div>
+                    <CardTitle className="text-xl mb-2">{newsletter.title}</CardTitle>
                   </div>
                 </CardHeader>
                 <CardContent>
@@ -58,14 +49,14 @@ export default async function NewsletterPage() {
                       className="w-full flex items-center justify-center gap-2"
                     >
                       <Button
-                      variant="secondary"
-                      className="w-full bg-transparent flex items-center justify-center gap-2"
-                      asChild
+                        variant="secondary"
+                        className="w-full bg-transparent flex items-center justify-center gap-2"
+                        asChild
                       >
-                      <>
-                        <SquareArrowOutUpRight className="h-4 w-4" />
-                        <span className="font-medium">Redirect</span>
-                      </>
+                        <>
+                          <SquareArrowOutUpRight className="h-4 w-4" />
+                          <span className="font-medium">Redirect</span>
+                        </>
                       </Button>
                     </a>
                   )}

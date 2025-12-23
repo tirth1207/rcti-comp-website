@@ -11,10 +11,9 @@ export default async function FacultyPage() {
   const supabase = await createClient()
 
   const { data: faculty, error } = await supabase
-  .from("faculty")
-  .select("*")
-  .order("designation", { ascending: true })
-  .order("name", { ascending: true })
+    .from("faculty")
+    .select("*")
+    .order("order", { ascending: true })
 
 
   if (error) {

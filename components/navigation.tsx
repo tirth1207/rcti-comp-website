@@ -34,9 +34,19 @@ export function Navigation() {
 
   const academicSections = [
     {
+      title: "About",
+      description: "Learn more about our department",
+      href: "/about",
+    },
+    {
       title: "Faculty Directory",
       description: "Meet our experienced faculty members",
       href: "/faculty",
+    },
+    {
+      title: "Newsletter",
+      description: "Stay updated with department news",
+      href: "/newsletter",
     },
     {
       title: "Student Corner",
@@ -48,26 +58,16 @@ export function Navigation() {
       description: "View photos from department events",
       href: "/events",
     },
-    {
-      title: "Newsletter",
-      description: "Stay updated with department news",
-      href: "/newsletter",
-    },
     // {
     //   title: "Feedback",
     //   description: "Share your thoughts and suggestions",
     //   href: "/feedback",
     // },
-    {
-      title: "About",
-      description: "Learn more about our department",
-      href: "/about",
-    },
-    {
-      title: "Result",
-      description: "Check your  mid semseter exam Result using your enrollment number.",
-      href: "/result",
-    }
+    // {
+    //   title: "Result",
+    //   description: "Check your  mid semseter exam Result using your enrollment number.",
+    //   href: "/result",
+    // }
   ]
 
   const semesters = [
@@ -80,9 +80,9 @@ export function Navigation() {
     { title: "Semester 4 (Old)", number: 4, type: "old" },
     { title: "Semester 4 (NEP)", number: 4, type: "new" },
     { title: "Semester 5", number: 5, type: "old" },
+    //{ title: "Semester 5 (NEP)", number: 5, type: "new" },
     { title: "Semester 6", number: 6, type: "old" },
-    // { title: "Semester 7", number: 7, type: "old" },
-    // { title: "Semester 8", number: 8, type: "old" },
+    //{ title: "Semester 6 (NEP)", number: 6, type: "new" },
   ]
 
   return (
@@ -220,7 +220,7 @@ export function Navigation() {
           {/* Right side actions */}
           <div className="flex items-center gap-3">
             {/* <ThemeToggle /> */}
-            <AnimatedThemeToggler/>
+            <AnimatedThemeToggler />
             <div className="hidden lg:block">
               <Link href="/contact">
                 <Button

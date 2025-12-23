@@ -20,8 +20,7 @@ export function Footer() {
               </span>
             </Link>
             <p className="text-sm text-muted-foreground max-w-xs leading-relaxed">
-              Empowering students with cutting-edge computer science education and innovative research opportunities for
-              a digital future.
+              To mould young and fresh minds into challenging computer professionals with ethical values and shaping them with upcoming technologies and develop the ability to deal with real world situations with skills and innovative ideas.
             </p>
             {/* <Link href="/auth/login">
               <Button
@@ -144,18 +143,18 @@ export function Footer() {
             <p className="text-sm text-muted-foreground">
               © {new Date().getFullYear()} Computer Engineering Department. All rights reserved.
             </p>
-            <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground justify-end " >
-              <div className="flex gap-1 items-center">
+            <div className="flex flex-col items-center gap-4 text-sm text-muted-foreground justify-end" >
+              <div className="flex gap-1 items-center ">
                 <span>Built with</span>
                 <span className="text-primary font-medium">Next.js</span>
                 <span>&</span>
                 <span className="text-primary font-medium">Tailwind CSS</span>
               </div>
               <p className="text-sm text-muted-foreground">
-              Developed by <a href="https://www.tirth.life/" target="_blank" rel="noopener noreferrer" className="hover:underline">Tirth Rathod</a>
+                Developed by <a href="https://www.tirth.is-a.dev/" target="_blank" rel="noopener noreferrer" className="hover:underline">Tirth Rathod</a>
               </p>
             </div>
-            
+
           </div>
         </div>
       </div>

@@ -27,8 +27,8 @@ export function Hero() {
           </h1>
 
           <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto text-pretty animate-in fade-in-0 slide-in-from-bottom-8 duration-1000 delay-300">
-            Empowering students with cutting-edge computer science education, innovative research opportunities, and
-            industry-ready skills for tomorrow's challenges.
+            To mould young and fresh minds into challenging computer professionals with ethical values and shaping them with upcoming technologies and develop
+            the ability to deal with real world situations with skills and innovative ideas.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12 animate-in fade-in-0 slide-in-from-bottom-10 duration-1000 delay-500">

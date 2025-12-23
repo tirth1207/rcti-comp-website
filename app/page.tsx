@@ -18,7 +18,7 @@ import {
 import { Hero } from "@/components/hero"
 import { Vision } from "@/components/vision"
 import { Mission } from "@/components/mission"
-import  NewsTicker  from "@/components/news-ticker"
+import NewsTicker from "@/components/news-ticker"
 import { MarqueeDemo } from "@/components/testimonial"
 import { pageMetadata } from "@/lib/metadata"
 
@@ -216,7 +216,7 @@ export default async function HomePage() {
       <Mission />
 
 
-      <NewsTicker/>
+      <NewsTicker />
 
       {newsletters && newsletters.length > 0 && (
         <section className="py-16 bg-muted/30 relative overflow-hidden">
@@ -282,17 +282,6 @@ export default async function HomePage() {
           </div>
         </section>
       )}
-      <div className="py-16  relative overflow-visible">
-        <div className="text-center mb-12">
-          <Badge variant="secondary" className="mb-4 bg-primary/10 text-primary border-primary/20">
-                Our Reviews
-              </Badge>
-              <h2 className="text-3xl font-bold text-foreground mb-4 text-balance">What People Are Saying</h2>
-              <p className="text-muted-foreground max-w-2xl mx-auto text-pretty">
-                 Hear from students and visitors about their experiences with our department.
-              </p>
-        </div>
-      </div>
     </div>
   )
 }

@@ -39,13 +39,13 @@ export default async function StudentCornerPage() {
                     <Bell className="h-6 w-6 text-accent mt-1" />
                     <div className="flex-1">
                       <CardTitle className="text-xl mb-2">{notice.title}</CardTitle>
-                      <p className="text-sm text-muted-foreground">
+                      {/* <p className="text-sm text-muted-foreground">
                         {new Date(notice.created_at).toLocaleDateString("en-US", {
                           year: "numeric",
                           month: "long",
                           day: "numeric",
                         })}
-                      </p>
+                      </p> */}
                     </div>
                   </div>
                 </CardHeader>
@@ -53,15 +53,15 @@ export default async function StudentCornerPage() {
                   <CardDescription className="mb-4 whitespace-pre-wrap">{notice.description}</CardDescription>
                   {notice.file_url && (
                     <Link href={notice.file_url} target="_blank" rel="noopener noreferrer">
-                    <Button variant="outline" size="sm" className="w-full bg-transparent" >
-                      
-                      <SquareArrowOutUpRightIcon className="h-4 w-4 mr-2" />
-                      View Attachment
+                      <Button variant="outline" size="sm" className="w-full bg-transparent" >
+
+                        <SquareArrowOutUpRightIcon className="h-4 w-4 mr-2" />
+                        View Attachment
                       </Button>
-                  </Link>
-                )}
-              </CardContent>
-            </Card>
+                    </Link>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         ) : (

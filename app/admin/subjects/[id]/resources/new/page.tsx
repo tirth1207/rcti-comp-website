@@ -22,15 +22,20 @@ interface ResourceRow {
 }
 
 const RESOURCE_CATEGORIES = [
+  "Syllabus",
   "Notes",
   "Presentations",
-  "Assignments",
-  "Syllabus",
   "Resources",
+  "Suggested List of Microprojects",
+  "Assignments",
+  "Microporject Rubrics",
+  "Assignments Rubrics",
+  "Question Bank",
   "Lab Manual",
-  "Question Papers",
+  "GTU Question Papers",
   "Reference Materials",
-  "Other"
+  "Internal Viva Questions",
+  "Other",
 ]
 
 export default function BulkResourcePage({ params }: Props) {
@@ -74,7 +79,7 @@ export default function BulkResourcePage({ params }: Props) {
     Papa.parse(file, {
       header: true,
       skipEmptyLines: true,
-      complete: (result:any) => {
+      complete: (result: any) => {
         const parsedRows = result.data.map((row: any) => ({
           title: row.title || "",
           category: row.category || "",
@@ -83,7 +88,7 @@ export default function BulkResourcePage({ params }: Props) {
 
         setRows(parsedRows)
       },
-      error: (err:any) => {
+      error: (err: any) => {
         console.error("CSV parse error:", err)
         alert("Failed to parse CSV file.")
       }
@@ -95,8 +100,8 @@ export default function BulkResourcePage({ params }: Props) {
 
     newRows[index][field] = value
 
-    // Always sync title with category
-    if (field === "category") {
+    // Sync title with category for non-reference materials
+    if (field === "category" && value !== "Reference Materials") {
       newRows[index].title = value
     }
 
@@ -211,6 +216,7 @@ export default function BulkResourcePage({ params }: Props) {
                           value={row.title}
                           onChange={(e) => handleChange(index, "title", e.target.value)}
                           placeholder="Resource title"
+                          disabled={row.category !== "Reference Materials"}
                         />
                       </td>
                       <td className="border p-2">
@@ -254,7 +260,7 @@ export default function BulkResourcePage({ params }: Props) {
 
             <div className="flex space-x-4 mt-4">
               <Button type="submit" disabled={isSubmitting}>
-                {isSubmitting ? "Submitting..." : <><Save className="h-4 w-4 mr-2"/> Submit All</>}
+                {isSubmitting ? "Submitting..." : <><Save className="h-4 w-4 mr-2" /> Submit All</>}
               </Button>
               <Link href={`/admin/subjects/${params.id}/resources`}>
                 <Button variant="outline" type="button">Cancel</Button>
