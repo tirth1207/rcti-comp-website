@@ -141,7 +141,7 @@ export default async function AdminDashboard() {
                 Add New Newsletter
               </Button>
             </Link>
-            <Link href="/admin/subject/new">
+            <Link href="/admin/subjects/new">
               <Button variant="outline" className="w-full justify-start bg-transparent mb-2">
                 <BookOpen className="h-4 w-4 mr-2" />
                 Upload Subject

@@ -25,6 +25,8 @@ const RESOURCE_CATEGORIES = [
   "Reference Materials",
   "Internal Viva Questions",
   "Practical Questions",
+  "Diary Format",
+  "Cover Pages",
   "Other",
 ]
 
