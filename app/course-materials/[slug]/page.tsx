@@ -8,29 +8,33 @@ import { Button } from "@/components/ui/button"
 // Helper function to parse semester info from slug
 function parseSemesterSlug(slug: string) {
   const patterns = [
-    { pattern: /^semester-(\d+)-(old|new)$/, handler: (match: RegExpMatchArray) => ({ 
-      number: parseInt(match[1]), 
-      type: match[2] as 'old' | 'new' 
-    })},
-    { pattern: /^semester-(\d+)$/, handler: (match: RegExpMatchArray) => ({ 
-      number: parseInt(match[1]), 
-      type: 'regular' as const 
-    })}
+    {
+      pattern: /^semester-(\d+)-(old|new)$/, handler: (match: RegExpMatchArray) => ({
+        number: parseInt(match[1]),
+        type: match[2] as 'old' | 'new'
+      })
+    },
+    {
+      pattern: /^semester-(\d+)$/, handler: (match: RegExpMatchArray) => ({
+        number: parseInt(match[1]),
+        type: 'regular' as const
+      })
+    }
   ]
-  
+
   for (const { pattern, handler } of patterns) {
     const match = slug.match(pattern)
     if (match) {
       const result = handler(match)
       return {
         ...result,
-        displayName: result.type === 'regular' 
+        displayName: result.type === 'regular'
           ? `Semester ${result.number}`
           : `Semester ${result.number} (${result.type.toUpperCase()})`
       }
     }
   }
-  
+
   return null
 }
 
@@ -78,7 +82,7 @@ export default async function SemesterSubjectsPage({ params }: Props) {
     .select('*')
     .eq('semester', semesterInfo.number)
     .eq('old_new', semesterInfo.type.toLowerCase())
-    .order('name')
+    .order('code')
 
   if (error) {
     console.error('Error fetching subjects:', error)
@@ -122,8 +126,8 @@ export default async function SemesterSubjectsPage({ params }: Props) {
         {subjects && subjects.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {subjects.map((subject) => (
-              <Link 
-                key={subject.id} 
+              <Link
+                key={subject.id}
                 href={`/course-materials/${slug}/${subject.id}`}
               >
                 <Card className="h-full hover:shadow-lg transition-all duration-300 cursor-pointer border-2 hover:border-primary/20">
