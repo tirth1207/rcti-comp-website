@@ -151,7 +151,7 @@ export function Footer() {
                 <span className="text-primary font-medium">Tailwind CSS</span>
               </div>
               <p className="text-sm text-muted-foreground">
-                Developed by <a href="https://www.tirth.is-a.dev/" target="_blank" rel="noopener noreferrer" className="hover:underline">Tirth Rathod</a>
+                Developed by <a href="https://tirth.is-a.dev/" target="_blank" rel="noopener noreferrer" className="hover:underline">Tirth Rathod</a>
               </p>
             </div>
 
