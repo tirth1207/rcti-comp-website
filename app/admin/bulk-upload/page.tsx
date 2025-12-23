@@ -11,16 +11,21 @@ import { UploadCloud, FileDown, Database, Loader2 } from "lucide-react";
 
 // ----- FIXED CATEGORIES -----
 const RESOURCE_CATEGORIES = [
+  "Syllabus",
   "Notes",
   "Presentations",
-  "Assignments",
-  "Syllabus",
   "Resources",
+  "Suggested List of Microprojects",
+  "Assignments",
+  "Microporject Rubrics",
+  "Assignments Rubrics",
+  "Question Bank",
   "Lab Manual",
-  "Question Papers",
+  "GTU Question Papers",
   "Reference Materials",
+  "Internal Viva Questions",
   "Other",
-];
+]
 
 function normalizeCategory(cat: any) {
   if (!cat) return "Other";
@@ -42,7 +47,7 @@ export default function MultiSubjectUploader() {
   const supabase = createClient();
 
   type Resource = { category: string; url: string };
-  type SubjectRow = { semester: number; code: string; name: string; resources: Resource[],type: string };
+  type SubjectRow = { semester: number; code: string; name: string; resources: Resource[], type: string };
 
   const [parsedData, setParsedData] = useState<SubjectRow[]>([]);
   const [log, setLog] = useState<string[]>([]);
@@ -197,102 +202,102 @@ export default function MultiSubjectUploader() {
   };
 
   return (
-  <div className="space-y-10 ">
+    <div className="space-y-10 ">
 
-    {/* HEADER */}
-    <div>
-      <h1 className="text-3xl font-bold tracking-tight">CSV Subject Importer</h1>
-      <p className="text-muted-foreground">Import subjects & resources the smart way</p>
-    </div>
+      {/* HEADER */}
+      <div>
+        <h1 className="text-3xl font-bold tracking-tight">CSV Subject Importer</h1>
+        <p className="text-muted-foreground">Import subjects & resources the smart way</p>
+      </div>
 
-    {/* UPLOAD CARD */}
-    <Card className="border">
-      <CardHeader>
-        <CardTitle>Upload CSV</CardTitle>
-        <CardDescription>Attach your CSV file and preview before saving</CardDescription>
-      </CardHeader>
+      {/* UPLOAD CARD */}
+      <Card className="border">
+        <CardHeader>
+          <CardTitle>Upload CSV</CardTitle>
+          <CardDescription>Attach your CSV file and preview before saving</CardDescription>
+        </CardHeader>
 
-      <CardContent className="space-y-6">
+        <CardContent className="space-y-6">
 
-        {/* TEMPLATE BUTTON */}
-        <Button
-          variant="outline"
-          onClick={downloadTemplate}
-          className="w-fit"
-        >
-          <FileDown className="h-4 w-4 mr-2" />
-          Download CSV Template
-        </Button>
+          {/* TEMPLATE BUTTON */}
+          <Button
+            variant="outline"
+            onClick={downloadTemplate}
+            className="w-fit"
+          >
+            <FileDown className="h-4 w-4 mr-2" />
+            Download CSV Template
+          </Button>
 
-        {/* DROPZONE */}
-        <label className="
+          {/* DROPZONE */}
+          <label className="
           flex flex-col items-center justify-center
           w-full h-40 border-2 border-dashed rounded-md 
           cursor-pointer hover:bg-muted/20 transition
         ">
-          <UploadCloud className="h-8 w-8 text-muted-foreground" />
-          <span className="mt-2 text-sm text-muted-foreground">
-            Click to select CSV file
-          </span>
-          <input
-            type="file"
-            className="hidden"
-            accept=".csv"
-            onChange={handleUpload}
-          />
-        </label>
+            <UploadCloud className="h-8 w-8 text-muted-foreground" />
+            <span className="mt-2 text-sm text-muted-foreground">
+              Click to select CSV file
+            </span>
+            <input
+              type="file"
+              className="hidden"
+              accept=".csv"
+              onChange={handleUpload}
+            />
+          </label>
 
-        {/* ACTION BUTTONS */}
-        {parsedData.length > 0 && (
-          <Button
-            className=""
-            onClick={handleInsert}
-            disabled={loading}
-          >
-            {loading ? (
-              <>
-                <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-                Uploading…
-              </>
-            ) : (
-              <>
-                <Database className="h-4 w-4 mr-2" />
-                Insert into Supabase
-              </>
-            )}
-          </Button>
-        )}
-      </CardContent>
-    </Card>
-
-    {/* PREVIEW TABLE */}
-    {parsedData.length > 0 && (
-      <Card>
-        <CardHeader>
-          <CardTitle>Preview</CardTitle>
-          <CardDescription>Review extracted subjects before inserting</CardDescription>
-        </CardHeader>
-        <CardContent>
-          <DataTable columns={columns} data={parsedData} />
+          {/* ACTION BUTTONS */}
+          {parsedData.length > 0 && (
+            <Button
+              className=""
+              onClick={handleInsert}
+              disabled={loading}
+            >
+              {loading ? (
+                <>
+                  <Loader2 className="h-4 w-4 mr-2 animate-spin" />
+                  Uploading…
+                </>
+              ) : (
+                <>
+                  <Database className="h-4 w-4 mr-2" />
+                  Insert into Supabase
+                </>
+              )}
+            </Button>
+          )}
         </CardContent>
       </Card>
-    )}
 
-    {/* IMPORT LOG */}
-    <Card className="bg-background border border-muted">
-      <CardHeader>
-        <CardTitle className="text-foreground">Import Log</CardTitle>
-      </CardHeader>
-      <CardContent>
-        <div className="h-64 overflow-y-auto text-foreground font-mono text-sm p-2 space-y-1">
-          {log.map((line, i) => (
-            <div key={i}>{line}</div>
-          ))}
-        </div>
-      </CardContent>
-    </Card>
+      {/* PREVIEW TABLE */}
+      {parsedData.length > 0 && (
+        <Card>
+          <CardHeader>
+            <CardTitle>Preview</CardTitle>
+            <CardDescription>Review extracted subjects before inserting</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <DataTable columns={columns} data={parsedData} />
+          </CardContent>
+        </Card>
+      )}
 
-  </div>
-);
+      {/* IMPORT LOG */}
+      <Card className="bg-background border border-muted">
+        <CardHeader>
+          <CardTitle className="text-foreground">Import Log</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="h-64 overflow-y-auto text-foreground font-mono text-sm p-2 space-y-1">
+            {log.map((line, i) => (
+              <div key={i}>{line}</div>
+            ))}
+          </div>
+        </CardContent>
+      </Card>
+
+    </div>
+  );
 
 }

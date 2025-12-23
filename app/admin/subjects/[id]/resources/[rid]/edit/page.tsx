@@ -19,15 +19,20 @@ interface Props {
 }
 
 const RESOURCE_CATEGORIES = [
+  "Syllabus",
   "Notes",
   "Presentations",
-  "Assignments",
-  "Syllabus",
   "Resources",
+  "Suggested List of Microprojects",
+  "Assignments",
+  "Microporject Rubrics",
+  "Assignments Rubrics",
+  "Question Bank",
   "Lab Manual",
-  "Question Papers",
+  "GTU Question Papers",
   "Reference Materials",
-  "Other"
+  "Internal Viva Questions",
+  "Other",
 ]
 
 export default function EditResourcePage({ params }: Props) {
@@ -83,49 +88,49 @@ export default function EditResourcePage({ params }: Props) {
   }, [params.id, params.rid, router])
 
   const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  setIsSubmitting(true)
+    e.preventDefault()
+    setIsSubmitting(true)
 
-  const supabase = createClient()
+    const supabase = createClient()
 
-  try {
-    // Get current user
-    const {
-      data: { user },
-      error: userError,
-    } = await supabase.auth.getUser()
+    try {
+      // Get current user
+      const {
+        data: { user },
+        error: userError,
+      } = await supabase.auth.getUser()
 
-    if (userError) throw userError
-    if (!user) throw new Error("User not authenticated")
+      if (userError) throw userError
+      if (!user) throw new Error("User not authenticated")
 
-    if (!title.trim() || !category) {
-      alert("Please fill in all required fields")
+      if (!title.trim() || !category) {
+        alert("Please fill in all required fields")
+        setIsSubmitting(false)
+        return
+      }
+
+      // Update resource with Google Drive URL (no file upload)
+      const { error } = await supabase
+        .from("resources")
+        .update({
+          title: title.trim(),
+          category,
+          file_url: fileUrl || null,
+          updated_at: new Date().toISOString(),
+        })
+        .eq("id", params.rid)
+
+      if (error) throw error
+
+      router.push(`/admin/subjects/${params.id}/resources`)
+      router.refresh()
+    } catch (error) {
+      console.error("Error updating resource:", error)
+      alert("There was an error saving the resource. Please try again.")
+    } finally {
       setIsSubmitting(false)
-      return
     }
-
-    // Update resource with Google Drive URL (no file upload)
-    const { error } = await supabase
-      .from("resources")
-      .update({
-        title: title.trim(),
-        category,
-        file_url: fileUrl || null,
-        updated_at: new Date().toISOString(),
-      })
-      .eq("id", params.rid)
-
-    if (error) throw error
-
-    router.push(`/admin/subjects/${params.id}/resources`)
-    router.refresh()
-  } catch (error) {
-    console.error("Error updating resource:", error)
-    alert("There was an error saving the resource. Please try again.")
-  } finally {
-    setIsSubmitting(false)
   }
-}
 
 
   const handleDelete = async () => {
