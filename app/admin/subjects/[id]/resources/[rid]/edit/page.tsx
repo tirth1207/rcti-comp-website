@@ -229,6 +229,7 @@ export default function EditResourcePage({ params }: Props) {
                     onChange={(e) => setTitle(e.target.value)}
                     placeholder="e.g., Introduction to Arrays - Lecture Notes"
                     required
+                    disabled={category !== "Reference Materials"}
                   />
                 </div>
 
@@ -236,7 +237,16 @@ export default function EditResourcePage({ params }: Props) {
                   <Label htmlFor="category">
                     Category <span className="text-destructive">*</span>
                   </Label>
-                  <Select value={category} onValueChange={setCategory} required>
+                  <Select
+                    value={category}
+                    onValueChange={(val) => {
+                      setCategory(val)
+                      if (val !== "Reference Materials") {
+                        setTitle(val)
+                      }
+                    }}
+                    required
+                  >
                     <SelectTrigger>
                       <SelectValue placeholder="Select category" />
                     </SelectTrigger>
