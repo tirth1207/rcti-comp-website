@@ -292,9 +292,6 @@ export default async function HomePage() {
                  Hear from students and visitors about their experiences with our department.
               </p>
         </div>
-        <div className="w-2/3 mx-auto">
-          <MarqueeDemo />
-        </div>
       </div>
     </div>
   )
