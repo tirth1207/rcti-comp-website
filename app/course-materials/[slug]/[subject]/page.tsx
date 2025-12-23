@@ -102,8 +102,8 @@ interface Resource {
 }
 
 const MAIN_CATEGORIES = {
-  Curriculum: ["Syllabus", "Notes", "Presentations", "Reference Materials"],
-  "Course Material": ["Assignments", "Resources", "Other"],
+  Curriculum: ["Syllabus", "Notes", "Presentations"],
+  "Course Material": ["Assignments", "Resources", "Reference Materials", "Other"],
   "Lab Resources": ["Lab Manual"],
   "Learning Exercises": ["Question Papers"],
 }
