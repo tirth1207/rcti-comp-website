@@ -128,6 +128,7 @@ const MAIN_CATEGORIES = {
     "Question Bank",
     "Internal Viva Questions",
     "GTU Question Papers",
+    "Practical Questions",
     "Question Papers",
     "Diary Format",
     "Cover Pages",
